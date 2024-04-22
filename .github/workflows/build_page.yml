@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: "calloc134/opac-automation"
+          path: "opac-automation"
+
       - uses: pnpm/action-setup@v2.2.4
         with:
           version: 8.15.6
@@ -18,16 +24,11 @@ jobs:
         with:
           node-version: "20"
           cache: "pnpm"
+
       - name: Setup bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          repository: "calloc134/opac-automation"
-          path: "opac-automation"
-
       - name: Install dependencies
         working-directory: opac-automation
         run: |

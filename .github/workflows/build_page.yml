@@ -20,6 +20,11 @@ jobs:
           repository: "calloc134/opac-automation"
           path: "opac-automation"
 
+      - name: Install dependencies
+        working-directory: opac-automation
+        run: |
+          bun install
+
       - name: Run program
         working-directory: opac-automation
         run: |

@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: "20"
           cache: "pnpm"
+          cache-dependency-path: "./opac-automation/pnpm-lock.yaml"
 
       - name: Setup bun
         uses: oven-sh/setup-bun@v1

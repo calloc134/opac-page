@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "pnpm"
       - name: Setup bun
         uses: oven-sh/setup-bun@v1
         with:
@@ -23,7 +28,7 @@ jobs:
       - name: Install dependencies
         working-directory: opac-automation
         run: |
-          bun install
+          pnpm install
 
       - name: Run program
         working-directory: opac-automation

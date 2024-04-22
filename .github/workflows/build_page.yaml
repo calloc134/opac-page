@@ -1,0 +1,27 @@
+name: deploy opac-page
+
+on:
+  schedule:
+    - cron: "30 22 * * *"
+  workflow_dispatch:
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 他のリポジトリのコードをチェックアウトする
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: "calloc134/opac-automation"
+          token: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Run program
+        run: |
+          bun start

@@ -82,8 +82,34 @@ jobs:
         run: |
           pnpm run build
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload Pages Artifacts
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: opac-astro
           path: ./dist
+
+  deploy:
+    needs: astro
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Commit
+        run: |
+          git config --global user.email "bot@opac"
+          git config --global user.name "opac-bot"
+          git add .
+          git commit -m "deploy opac-astro"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

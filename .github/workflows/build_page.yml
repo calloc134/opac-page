@@ -16,11 +16,11 @@ jobs:
           repository: "calloc134/opac-automation"
           path: "opac-automation"
 
-      - uses: pnpm/action-setup@v2.2.4
+      - uses: pnpm/action-setup@v3
         with:
           version: 8.15.6
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "pnpm"
@@ -45,3 +45,9 @@ jobs:
           OPENAM_URL: ${{ secrets.OPENAM_URL }}
           ILISWAVE_URL: ${{ secrets.ILISWAVE_URL }}
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: opac-output-json
+          path: opac-automation/output.json

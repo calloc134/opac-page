@@ -39,3 +39,9 @@ jobs:
         working-directory: opac-automation
         run: |
           bun start
+        env:
+          USER_ID: ${{ secrets.USER_ID }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          OPENAM_URL: ${{ secrets.OPENAM_URL }}
+          ILISWAVE_URL: ${{ secrets.ILISWAVE_URL }}
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}

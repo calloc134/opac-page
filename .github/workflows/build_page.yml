@@ -1,6 +1,7 @@
 name: deploy opac-page
 
 on:
+  # 毎日日本時間で七時半に実行
   schedule:
     - cron: "30 22 * * *"
   workflow_dispatch:
@@ -23,7 +24,6 @@ jobs:
         with:
           node-version: "20"
           cache: "pnpm"
-          # cache-dependency-path: "./pnpm-lock.yaml"
 
       - name: Setup bun
         uses: oven-sh/setup-bun@v1
@@ -107,12 +107,14 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Commit
-        run: |
-          git config --global user.email "bot@opac"
-          git config --global user.name "opac-bot"
-          git add .
-          git commit -m "deploy opac-astro"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Githubにコミットする機能
+      # とりあえず必要なさそうなのでコメントアウト
+      # - name: Commit
+      #   run: |
+      #     git config --global user.email "bot@opac"
+      #     git config --global user.name "opac-bot"
+      #     git add .
+      #     git commit -m "deploy opac-astro"
+      #     git push
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

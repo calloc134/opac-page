@@ -14,7 +14,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: "calloc134/opac-automation"
-          path: "opac-automation"
 
       - uses: pnpm/action-setup@v3
         with:
@@ -24,19 +23,17 @@ jobs:
         with:
           node-version: "20"
           cache: "pnpm"
-          cache-dependency-path: "./opac-automation/pnpm-lock.yaml"
+          # cache-dependency-path: "./pnpm-lock.yaml"
 
       - name: Setup bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
       - name: Install dependencies
-        working-directory: opac-automation
         run: |
           pnpm install
 
       - name: Run program
-        working-directory: opac-automation
         run: |
           bun start
         env:
@@ -71,10 +68,8 @@ jobs:
         with:
           node-version: "20"
           cache: "pnpm"
-          cache-dependency-path: "./opac-astro/pnpm-lock.yaml"
 
       - name: Install dependencies
-        working-directory: opac-astro
         run: |
           pnpm install
 
@@ -82,10 +77,8 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: opac-output-json
-          path: opac-astro
 
       - name: Run program
-        working-directory: opac-astro
         run: |
           pnpm run build
 
@@ -93,4 +86,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: opac-astro
-          path: opac-astro/dist
+          path: ./dist
